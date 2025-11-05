@@ -1,1 +1,5 @@
-<p>watched-movie-list.component works!</p>
+<ul>
+  <li @for(watchedMovie of watchedMovies(); track watchedMovie.id)>
+    {{ watchedMovie.id }} - {{ watchedMovie.name }} watched on {{ watchedMovie.watchedDate }}
+  </li>
+</ul>
