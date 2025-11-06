@@ -1,15 +1,11 @@
 <h2>Watched Movies</h2>
 
-@for (watchedMovie of watchedMovies(); track watchedMovie.id) {
-  <div class="watched-movie-item">
-    <div>
-      <span>ID: </span><span>{{ watchedMovie.id }}</span>
-    </div>
-    <div>
-      <span>User: </span><span>{{ watchedMovie.name }}</span>
-    </div>
-    <div>
-      <span>Watched on: </span><span>{{ watchedMovie.watchedDate }}</span>
-    </div>
-  </div>
-}
+<ul>
+  @for (watchedMovie of watchedMovies(); track watchedMovie.id) {
+    <li class="watched-movie-item">
+      ID: {{ watchedMovie.id }} —
+      Name: {{ watchedMovie.name }} —
+      Watched on: {{ watchedMovie.watchedDate }}
+    </li>
+  }
+</ul>
