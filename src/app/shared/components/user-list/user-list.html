@@ -1,6 +1,14 @@
 <div class="user-list"> 
     <!-- Header -->
     <h3>Users</h3>
+
+    <!-- Check if users array has data -->
+    @if (users.length > 0) {
+        <div class="array-check-message">
+            <p>The users array contains data</p>
+        </div>
+    }
+
     <!-- List of usernames --> 
     <ul class="user-list">
         <!-- For loop to list username of user -->
@@ -8,6 +16,11 @@
             <li class="user-item">
                 {{ user.name }}
             </li>
+        } @empty {
+            <!-- This shows only if the array is empty-->
+            <div class="empty-state">
+                <p>No users found.</p>
+            </div>
         }
     </ul>
 </div>
