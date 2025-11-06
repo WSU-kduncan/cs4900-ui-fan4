@@ -1,0 +1,28 @@
+// This will be the container for the entire user list
+.user-list-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  max-width: 400px;
+}
+
+// Style for each user item
+.user-item {
+    padding: 12px 16px;
+    margin-bottom: 8px; 
+    background-color: whitesmoke;
+    border: 2px solid #4a90e2;
+    border-radius: 4px;
+    color: #333;
+    // Some pizazz
+    transition: all 0.3s ease;
+
+    // More hover pizazz
+    &:hover {
+        background-color: #525252;
+        border-color: #2196f3;
+        color: #f5f5f5;
+        transform: translatex(5px);
+        cursor: pointer;
+    }
+}

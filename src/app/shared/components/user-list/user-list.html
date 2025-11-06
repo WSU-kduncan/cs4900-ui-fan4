@@ -1,0 +1,13 @@
+<div class="user-list"> 
+    <!-- Header -->
+    <h3>Users</h3>
+    <!-- List of usernames --> 
+    <ul class="user-list">
+        <!-- For loop to list username of user -->
+        @for (user of users; track user.id){
+            <li class="user-item">
+                {{ user.name }}
+            </li>
+        }
+    </ul>
+</div>
