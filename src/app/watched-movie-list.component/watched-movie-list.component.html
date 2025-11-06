@@ -1,11 +1,19 @@
 <h2>Watched Movies</h2>
 
+// Displays message when array has objects
+@if (watchedMovies.length > 0){
+  <p>Displaying {{ watchedMovies.length }} watched movies</p>
+}
+
+// Displays Objects
 <ul>
-  @for (watchedMovie of watchedMovies(); track watchedMovie.id) {
+  @for (watchedMovie of watchedMovies; track watchedMovie.id) {
     <li class="watched-movie-item">
       ID: {{ watchedMovie.id }} —
       Name: {{ watchedMovie.name }} —
       Watched on: {{ watchedMovie.watchedDate }}
     </li>
+  } @empty {
+    <p>There are no watched movies</p>
   }
 </ul>
