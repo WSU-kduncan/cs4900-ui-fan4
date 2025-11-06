@@ -22,6 +22,10 @@ export class UserList {
   ]
 }
 
+/** 
+ * Defines variables for User object
+ *   TODO: I should put this in its own file so I can import it anywhere cleanly
+ */
 export interface User {
   id: string;
   name: string;
