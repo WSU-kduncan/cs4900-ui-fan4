@@ -1,0 +1,17 @@
+<h1>User Reviews</h1>
+
+@if (userReviews.length > 0) {
+  <ul>
+    @for (review of userReviews; track review.id) {
+      <li class="review-item">
+        <h2>{{ review.username }}</h2>
+        <p class ="rating">Rating: {{review.rating}}</p>
+        <p class="review-text"> {{ review.review }}</p>
+      </li>
+    } @empty { // No clue how this line is being reached when array is empty.
+        <li class="no-reviews">No reviews made</li>
+    }
+  </ul>
+} @else {
+  <p>No reviews available.</p>
+}
