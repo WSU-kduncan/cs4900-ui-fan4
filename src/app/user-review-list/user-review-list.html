@@ -5,9 +5,8 @@
        [value]="newReviewText()" 
        (input)="newReviewText.set($any($event.target).value)" 
        placeholder="Write a review">
+  <button (click)="addNewReview()">Add Review</button>
 </div>
-<div class ="button"><button (click)="addNewReview()">Add Review</button></div>
-
 @if (userReviews().length > 0) {
   <ul>
     @for (review of userReviews(); track review.id) {

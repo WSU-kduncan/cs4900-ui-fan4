@@ -3,17 +3,26 @@
     margin-bottom: 16px;
 }
 
-.button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.add-review {
+  display: flex;
+  flex-direction: column; /* Stack input and button vertically */
+  align-items: center;    /* Center horizontally */
+  gap: 8px;               /* Space between input and button */
+  margin: 16px 0;
 }
 
-.add-review {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    color: #521955;
-    padding: 16px;
-    margin: 16px 0;
-    background-color: #f9f9f9;
+.add-review button {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #521955;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
 }
+
+.add-review button:hover {
+  background-color: #421442;
+}
+
