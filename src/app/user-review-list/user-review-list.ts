@@ -1,41 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { readableStreamLikeToAsyncGenerator } from 'rxjs/internal/util/isReadableStreamLike';
+import { UserService } from '../user.service';
+import { UserReviewDetail } from "../user-review-detail/user-review-detail";
 
-interface UserReview { // Declares variables that will be used in the user review list
-  id: number;
-  username: string;
-  rating: number;
-  review: string;
-}
-
-@Component({ // Defines the UserReviewList component
+@Component({
   selector: 'app-user-review-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, UserReviewDetail],
   templateUrl: './user-review-list.html',
-  styleUrl: './user-review-list.scss',
-
+  styleUrls: ['./user-review-list.scss'],
 })
-export class UserReviewList { // Creates a list of user reviews
-  userReviews: UserReview[] = [
-    {
-      id: 1,
-      username: 'john_doe',
+
+export class UserReviewList {
+  // Inject the service
+  userService = inject(UserService);
+
+  // Signal for the input text
+  newReviewText = signal('');
+
+  // Reference the reviews from the service
+  userReviews = this.userService.userReviews;
+
+  // Method to add a review via the service
+  addNewReview() {
+    if (!this.newReviewText()) return; // ignore empty input
+
+    const newId = this.userReviews().length + 1;
+    this.userService.addReview({
+      id: newId,
+      username: 'new_user', // could be dynamic later
       rating: 5,
-      review: 'The guy below is lying.',
-    },
-    {
-      id: 2,
-      username: 'jane_smith',
-      rating: 4,
-      review: 'I always tell the truth, the guy above or below is lying.',
-    },
-    {
-      id: 3,
-      username: 'alice_jones',
-      rating: 3,
-      review: 'Average movie, nothing special.',
-    },
-  ];   
+      review: this.newReviewText()
+    });
+
+    this.newReviewText.set(''); // clear input
+  }
 }
