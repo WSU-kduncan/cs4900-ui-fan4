@@ -1,12 +1,19 @@
-@if (movies.length > 0) {
-    @for(movie of movies; track movie.id) {
-        <li>
-            {{ movie.id }}: {{ movie.title }} <br>
-                Director: {{ movie.director }} <br>
-                Genre: {{ movie.genre }} <br>
-                Release Date: {{ movie.releaseDate }} <br><br>
-        </li>
-    }
+<div class="header"><h1>Movies</h1></div>
+
+<div class ="add-movie">
+    <input type="text"
+        [value]="newMovieTitle()"
+        (input)="newMovieTitle.set($any($event.target).value)"
+        placeholder="Enter New Movie Title">
+    <button (click)="addMovie()">Add Movie</button>
+</div>
+
+@if (movies().length > 0) {
+    <ul>
+        @for(movie of movies(); track movie.id) {
+            <app-movie-detail [movie]="movie"></app-movie-detail>
+        }   
+    </ul>
 } @else {
     <p>No movies available</p>
 }
