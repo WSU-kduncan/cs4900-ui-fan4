@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { WatchedMovieService } from '../watched-movie-service';
+import { WatchedMovieDetail } from "../watched-movie-detail/watched-movie-detail";
 
 
 
 @Component({
   selector: 'app-watched-movie-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, WatchedMovieDetail],
   templateUrl: './watched-movie-list.component.html',
   styleUrl: './watched-movie-list.component.scss',
 })

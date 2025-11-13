@@ -8,9 +8,7 @@
 <ul>
   @for (watchedMovie of this.watchedMovieService.watchedMovies(); track watchedMovie.id) {
     <li class="watched-movie-item">
-      MovieID: {{ watchedMovie.id }} —
-      Name: {{ watchedMovie.name }} —
-      Watched on: {{ watchedMovie.watchedDate }}
+      <app-watched-movie-detail [watchedMovie]="watchedMovie" />
     </li>
   } @empty { <!-- Displays when watchedMovies is empty -->
     <p>There are no watched movies</p>
@@ -22,7 +20,7 @@
   <input type="text"
     [value]="newWatchedMovieDate()"
     (input)="newWatchedMovieDate.set(($event.target).value)"
-    placeholder="Enter the date of when you watched the movie"
+    placeholder="Enter watched date"
   >
   <button (click)="addNewWatchedMovie()">Add Watched Movie </button>
 </div>
