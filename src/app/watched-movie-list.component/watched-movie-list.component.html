@@ -1,13 +1,12 @@
 <h2>Watched Movies</h2>
 
 <!-- Displays message when array has objects -->
-@if (watchedMovies.length > 0){
-  <p>Displaying {{ watchedMovies.length }} watched movies</p>
+@if (this.watchedMovieService.watchedMovies.length > 0){
+  <p>Displaying {{ this.watchedMovieService.watchedMovies().length }} watched movies</p>
 }
-
 <!-- Displays Objects -->
 <ul>
-  @for (watchedMovie of watchedMovies; track watchedMovie.id) {
+  @for (watchedMovie of this.watchedMovieService.watchedMovies(); track watchedMovie.id) {
     <li class="watched-movie-item">
       MovieID: {{ watchedMovie.id }} —
       Name: {{ watchedMovie.name }} —
@@ -17,3 +16,13 @@
     <p>There are no watched movies</p>
   }
 </ul>
+
+
+<div class ="add-watched-movie">
+  <input type="text"
+    [value]="newWatchedMovieDate()"
+    (input)="newWatchedMovieDate.set(($event.target).value)"
+    placeholder="Enter the date of when you watched the movie"
+  >
+  <button (click)="addNewWatchedMovie()">Add Watched Movie </button>
+</div>
