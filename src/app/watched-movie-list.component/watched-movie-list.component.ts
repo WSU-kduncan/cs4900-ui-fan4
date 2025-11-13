@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { WatchedMovieService } from '../watched-movie-service';
 
-interface WatchedMovie{
-  name: string;
-  id: number;
-  watchedDate: string;
-}
+
 
 @Component({
   selector: 'app-watched-movie-list',
@@ -16,12 +13,18 @@ interface WatchedMovie{
 })
 export class WatchedMovieListComponent {
 
-  // Recreation of DB for watched movies on user `jdoe` user page
-  // movieID is now id
-  // user is now name
-  watchedMovies: WatchedMovie[] =[ // Should be set to import DTO later (I think)
-    {id: 1, name: 'jdoe', watchedDate: '2023-05-01'},
-    {id: 2, name: 'jdoe', watchedDate: '2023-05-05'}
-  ];
 
+  watchedMovieService = inject(WatchedMovieService);
+
+  newWatchedMovieDate = signal<string>(''); // Maybe remove string specifier?
+
+  addNewWatchedMovie() {
+    // Check for null values
+    if (this.newWatchedMovieDate() == null){return;}
+
+    // All hardcoded values except inputted movieID value for now
+    this.watchedMovieService.addWatchedMovie(
+      {id: 2, name: 'jdoe', watchedDate: this.newWatchedMovieDate()}
+    )
+  }
 }
