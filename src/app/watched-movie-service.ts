@@ -15,10 +15,7 @@ export class WatchedMovieService {
 
   constructor(private http: HttpClient){}// Ask about in class | CORS line?
 
-  watchedMovies = signal<WatchedMovie[]>([
-    {id: 1, name: 'jdoe', watchedDate: '2023-05-01'},
-    {id: 2, name: 'jdoe', watchedDate: '2023-05-05'}
-  ]);
+  watchedMovies = signal<WatchedMovie[]>([]);
 
   addWatchedMovie(newWatchedMovie : WatchedMovie){
     this.watchedMovies.update((currentWatchedMovies) => [...currentWatchedMovies, newWatchedMovie]);
