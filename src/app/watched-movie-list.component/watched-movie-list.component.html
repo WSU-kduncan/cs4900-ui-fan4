@@ -6,7 +6,7 @@
 }
 <!-- Displays Objects -->
 <ul>
-  @for (watchedMovie of this.watchedMovieService.watchedMovies(); track watchedMovie.id) {
+  @for (watchedMovie of this.watchedMovies(); track watchedMovie.id) {
     <li class="watched-movie-item">
       <app-watched-movie-detail [watchedMovie]="watchedMovie" />
     </li>
