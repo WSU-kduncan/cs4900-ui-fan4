@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { WatchedMovieListComponent } from './watched-movie-list.component/watched-movie-list.component';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface WatchedMovie{
   name: string;
@@ -11,6 +12,9 @@ export interface WatchedMovie{
   providedIn: 'root',
 })
 export class WatchedMovieService {
+
+  constructor(private http: HttpClient){}// Ask about in class | CORS line?
+
   watchedMovies = signal<WatchedMovie[]>([
     {id: 1, name: 'jdoe', watchedDate: '2023-05-01'},
     {id: 2, name: 'jdoe', watchedDate: '2023-05-05'}
@@ -18,5 +22,9 @@ export class WatchedMovieService {
 
   addWatchedMovie(newWatchedMovie : WatchedMovie){
     this.watchedMovies.update((currentWatchedMovies) => [...currentWatchedMovies, newWatchedMovie]);
+  }
+
+  getWatchedMovies(): Observable<WatchedMovie[]>{
+    return this.http.get<WatchedMovie[]>('http://localhost:8080/Fant4/review'); // Required adding CORS file in API
   }
 }
