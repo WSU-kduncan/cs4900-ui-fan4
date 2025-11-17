@@ -22,6 +22,6 @@ export class WatchedMovieService {
   }
 
   getWatchedMovies(): Observable<WatchedMovie[]>{
-    return this.http.get<WatchedMovie[]>('http://localhost:8080/Fant4/review'); // Required adding CORS file in API
+    return this.http.get<WatchedMovie[]>('http://localhost:8080/Fan4/watched-movie'); // Required adding CORS file in API
   }
 }

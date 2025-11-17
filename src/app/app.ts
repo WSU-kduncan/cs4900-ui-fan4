@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ɵbypassSanitizationTrustResourceUrl } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WatchedMovieListComponent } from "./watched-movie-list.component/watched-movie-list.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, WatchedMovieListComponent, WatchedMovieListComponent],
+  standalone: true,
+  imports: [RouterOutlet, WatchedMovieListComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
