@@ -1,7 +1,9 @@
 import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Movie {
-  id: number;
+  movieID: number;
   title: string;
   director: string;
   genre: string;
@@ -13,12 +15,13 @@ export interface Movie {
 })
 
 export class MovieService {
-  movies = signal<Movie[]>([
-    {id: 1, title: 'The Matrix', director: 'Lana Wachowski', genre: 'Sci-Fi', releaseDate: new Date('1999-03-31')},
-    {id: 2, title: 'Inception', director: 'Christopher Nolan', genre: 'Sci-Fi', releaseDate: new Date('2010-07-16')},
-    {id: 3, title: 'The Dark Knight', director: 'Christopher Nolan', genre: 'Action', releaseDate: new Date('2008-07-18')},
-    {id: 4, title: 'Interstellar', director: 'Christopher Nolan', genre: 'Sci-Fi', releaseDate: new Date('2014-11-07')},
-  ]);
+  constructor(private http: HttpClient) {}
+
+  movies = signal<Movie[]>([]);
+
+  getMovies(): Observable<Movie[]> {
+    return this.http.get<Movie[]>('http://localhost:8080/Fan4/movie');
+  }
 
   addMovie(movie: Movie) {
     this.movies.update(movies => [...movies, movie]);

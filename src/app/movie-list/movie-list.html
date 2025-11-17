@@ -1,16 +1,16 @@
 <div class="header"><h1>Movies</h1></div>
 
 <div class ="add-movie">
-    <input type="text"
-        [value]="newMovieTitle()"
-        (input)="newMovieTitle.set($any($event.target).value)"
-        placeholder="Enter New Movie Title">
-    <button (click)="addMovie()">Add Movie</button>
+<input type="text"
+    [value]="newMovieTitle()"
+    (input)="newMovieTitle.set($any($event.target).value)"
+    placeholder="Enter New Movie Title">
+<button (click)="addMovie()">Add Movie</button>
 </div>
 
 @if (movies().length > 0) {
     <ul>
-        @for(movie of movies(); track movie.id) {
+        @for(movie of movies(); track movie.movieID) {
             <app-movie-detail [movie]="movie"></app-movie-detail>
         }   
     </ul>

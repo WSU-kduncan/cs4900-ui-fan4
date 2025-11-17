@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieService } from '../movie-service';
+import { MovieService, Movie } from '../movie-service';
 import { MovieDetail } from '../movie-detail/movie-detail';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-movie-list',
@@ -11,18 +12,18 @@ import { MovieDetail } from '../movie-detail/movie-detail';
   styleUrl: './movie-list.scss',
 })
 export class MovieListComponent {
-  private readonly movieService = inject(MovieService);
+  movieService = inject(MovieService);
+
+  movies = toSignal(this.movieService.getMovies(), { initialValue: [] });
 
   newMovieTitle = signal('');
-
-  movies = this.movieService.movies;
 
   addMovie() {
     if (!this.newMovieTitle()) return;
 
     const newId = this.movies().length + 1;
     this.movieService.addMovie({
-      id: newId,
+      movieID: newId,
       title: this.newMovieTitle(),
       director: 'Unknown',
       genre: 'Unknown',
