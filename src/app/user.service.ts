@@ -1,10 +1,13 @@
 import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface UserReview {
-  id: number;
   username: string;
+  movieID: number;
   rating: number;
-  review: string;
+  writtenReview: string;
+  reviewDate: string;
 }
 
 @Injectable({
@@ -12,29 +15,16 @@ export interface UserReview {
 })
 
 export class UserService {
-  userReviews = signal<UserReview[]>([
-    {
-      id: 1,
-      username: 'john_doe',
-      rating: 5,
-      review: 'The guy below is lying.',
-    },
-    {
-      id: 2,
-      username: 'jane_smith',
-      rating: 4,
-      review: 'I always tell the truth, the guy above or below is lying.',
-    },
-    {
-      id: 3,
-      username: 'alice_jones',
-      rating: 3,
-      review: 'Average movie, nothing special.',
-    },
-  
-  ]); 
+  constructor(private http: HttpClient) {}
 
-  addReview(review: UserReview) {
+  // Currently a local signal to store new reviews but will need to change this when implenting put and post.
+  userReviews = signal<UserReview[]>([]);
+  
+  getReviews(): Observable<UserReview[]> {
+    return this.http.get<UserReview[]>('http://localhost:8080/Fan4/review');
+  }
+
+   addReview(review: UserReview) {
     this.userReviews.update(reviews => [...reviews, review]);
   }
 }

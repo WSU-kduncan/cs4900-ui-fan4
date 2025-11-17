@@ -1,6 +1,7 @@
 <div class="review-detail">
   <h3>Review by: {{ review().username }}</h3>
+  <p>Movie ID: {{ review().movieID }}</p>
   <p>Rating: {{ review().rating }} stars</p>
-  <p>Comment: "{{ review().review }}"</p>
-  <p>Id: " {{ review().id }}"</p>
+  <p>Comment: "{{ review().writtenReview }}"</p>
+  <p>Review Date: {{ review().reviewDate }}</p>
 </div>

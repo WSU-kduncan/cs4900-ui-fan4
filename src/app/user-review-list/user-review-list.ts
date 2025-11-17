@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../user.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { UserService, UserReview } from '../user.service';
 import { UserReviewDetail } from "../user-review-detail/user-review-detail";
 
 @Component({
@@ -15,24 +16,25 @@ export class UserReviewList {
   // Inject the service
   userService = inject(UserService);
 
+  reviews = toSignal(this.userService.getReviews(), { initialValue: [] });
+
   // Signal for the input text
   newReviewText = signal('');
-
-  // Reference the reviews from the service
-  userReviews = this.userService.userReviews;
 
   // Method to add a review via the service
   addNewReview() {
     if (!this.newReviewText()) return; // ignore empty input
 
-    const newId = this.userReviews().length + 1;
     this.userService.addReview({
-      id: newId,
       username: 'new_user', // could be dynamic later
+      movieID: 1,
       rating: 5,
-      review: this.newReviewText()
+      writtenReview: this.newReviewText(),
+      reviewDate: new Date().toISOString()
     });
 
     this.newReviewText.set(''); // clear input
   }
+
+  // Will probably need to implement a post method for the new review button.
 }
