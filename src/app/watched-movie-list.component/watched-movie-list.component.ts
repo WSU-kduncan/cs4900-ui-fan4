@@ -17,7 +17,7 @@ export class WatchedMovieListComponent {
 
   watchedMovieService = inject(WatchedMovieService);
 
-  newWatchedMovieDate = signal<string>(''); // Maybe remove string specifier?
+  newWatchedMovieDate = signal<string>('');
 
   watchedMovies = toSignal(this.watchedMovieService.getWatchedMovies(), { initialValue: [] })
 
@@ -27,7 +27,7 @@ export class WatchedMovieListComponent {
 
     // All hardcoded values except inputted movieID value for now
     this.watchedMovieService.addWatchedMovie(
-      {id: 2, name: 'jdoe', watchedDate: this.newWatchedMovieDate()}
+      {movieID: 2, username: 'jdoe', watchedDate: this.newWatchedMovieDate()}
     )
   }
 }

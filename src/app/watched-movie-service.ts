@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface WatchedMovie{
-  name: string;
-  id: number;
+  username: string;
+  movieID: number;
   watchedDate: string;
 }
 
@@ -13,7 +13,7 @@ export interface WatchedMovie{
 })
 export class WatchedMovieService {
 
-  constructor(private http: HttpClient){}// Ask about in class | CORS line?
+  constructor(private http: HttpClient){}
 
   watchedMovies = signal<WatchedMovie[]>([]);
 
