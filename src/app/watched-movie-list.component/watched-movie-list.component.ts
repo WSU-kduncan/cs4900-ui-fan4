@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
-import { WatchedMovieService } from '../watched-movie-service';
+import { WatchedMovie, WatchedMovieService } from '../watched-movie-service';
 import { WatchedMovieDetail } from "../watched-movie-detail/watched-movie-detail";
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 
 
@@ -19,11 +19,14 @@ export class WatchedMovieListComponent {
 
   newWatchedMovieDate = signal<string>('');
 
-  watchedMovies = toSignal(this.watchedMovieService.getWatchedMovies(), { initialValue: [] })
+  watchedMovies = signal<WatchedMovie[]>([]);
+
+  ngOnInit(): void{
+    this.loadWatchedMovies();
+  }
 
   loadWatchedMovies(): void {
     this.watchedMovieService.getWatchedMovies()
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (movies: any[]) => {
           this.watchedMovies.set(movies);

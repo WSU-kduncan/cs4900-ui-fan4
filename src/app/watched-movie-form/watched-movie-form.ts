@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WatchedMovieService } from '../watched-movie-service';
+import { WatchedMovieListComponent } from '../watched-movie-list.component/watched-movie-list.component';
 
 @Component({
   selector: 'app-watched-movie-form',
@@ -11,6 +12,7 @@ import { WatchedMovieService } from '../watched-movie-service';
 export class WatchedMovieForm {
 
   watchedMovieService = inject(WatchedMovieService);
+  watchedMovieList = inject(WatchedMovieListComponent);
 
   private readonly fb = inject(FormBuilder);
 
@@ -42,6 +44,6 @@ export class WatchedMovieForm {
 
     this.watchedMovieForm.reset();
 
-    this.watchedMovieService.getWatchedMovies();//! should be updating signal automatically
+    this.watchedMovieList.loadWatchedMovies();
   }
 }
