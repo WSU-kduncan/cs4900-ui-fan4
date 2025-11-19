@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from '../../models/user.model';
+import { UserService } from '../../service/user-service';
+
 @Component({
   selector: 'app-user-list',
   imports: [CommonModule],
@@ -13,13 +14,12 @@ import { User } from '../../models/user.model';
  *  Contains business logic and data live
  */
 export class UserList {
-  // Data - Class Property (can be accessed in component and template)
-  users: User[] = [
-    {id: '1', name: "asmith" },
-    {id: '2', name: "bwayne" },
-    {id: '3', name: "ckent" },
-    {id: '4', name: "jdoe" },
-    {id: '5', name: "tony_stark123" }
-  ]
+  // Inject the UserService singleton
+  private readonly userService = inject(UserService);
+
+  // Access the users signal from the service
+  users = this.userService.users;
+
+  
 }
 
