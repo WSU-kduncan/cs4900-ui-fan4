@@ -15,10 +15,8 @@ export class WatchedMovieService {
 
   constructor(private http: HttpClient){}
 
-  watchedMovies = signal<WatchedMovie[]>([]);
-
-  addWatchedMovie(newWatchedMovie : WatchedMovie){
-    this.watchedMovies.update((currentWatchedMovies) => [...currentWatchedMovies, newWatchedMovie]);
+  createWatchedMovie(newWatchedMovie : WatchedMovie): Observable<WatchedMovie>{
+    return this.http.post<WatchedMovie>('http://localhost:8080/Fan4/watched-movie', newWatchedMovie);
   }
 
   getWatchedMovies(): Observable<WatchedMovie[]>{

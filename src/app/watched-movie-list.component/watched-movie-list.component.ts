@@ -15,25 +15,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class WatchedMovieListComponent {
 
-  constructor(){
-    effect(() => {
-      console.log(this.watchedMovies());
-    })
-  }
-
   watchedMovieService = inject(WatchedMovieService);
 
   newWatchedMovieDate = signal<string>('');
 
   watchedMovies = toSignal(this.watchedMovieService.getWatchedMovies(), { initialValue: [] })
 
-  addNewWatchedMovie() {
-    // Checks for null values
-    if (this.newWatchedMovieDate() == null){return;}
+  // updateWatchedMovies() {
+  //     this.watchedMovieService.getWatchedMovies(); //! SHOULD be forcing signal to update after post
+  // }
 
-    // All hardcoded values except inputted movieID value for now
-    this.watchedMovieService.addWatchedMovie(
-      {movieID: 2, user: 'jdoe', watchedDate: this.newWatchedMovieDate()}
-    )
-  }
 }
