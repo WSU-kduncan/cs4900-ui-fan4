@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { WatchedMovieService } from '../watched-movie-service';
 import { WatchedMovieDetail } from "../watched-movie-detail/watched-movie-detail";
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -15,6 +15,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class WatchedMovieListComponent {
 
+  constructor(){
+    effect(() => {
+      console.log(this.watchedMovies());
+    })
+  }
+
   watchedMovieService = inject(WatchedMovieService);
 
   newWatchedMovieDate = signal<string>('');
@@ -27,7 +33,7 @@ export class WatchedMovieListComponent {
 
     // All hardcoded values except inputted movieID value for now
     this.watchedMovieService.addWatchedMovie(
-      {movieID: 2, username: 'jdoe', watchedDate: this.newWatchedMovieDate()}
+      {movieID: 2, user: 'jdoe', watchedDate: this.newWatchedMovieDate()}
     )
   }
 }

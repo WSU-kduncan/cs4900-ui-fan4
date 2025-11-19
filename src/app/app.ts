@@ -5,7 +5,7 @@ import { WatchedMovieListComponent } from "./watched-movie-list.component/watche
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, WatchedMovieListComponent],
+  imports: [WatchedMovieListComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

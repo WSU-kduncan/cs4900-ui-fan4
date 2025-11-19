@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface WatchedMovie{
-  username: string;
+  user: string;
   movieID: number;
   watchedDate: string;
 }
