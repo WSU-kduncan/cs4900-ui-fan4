@@ -21,8 +21,16 @@ export class WatchedMovieListComponent {
 
   watchedMovies = toSignal(this.watchedMovieService.getWatchedMovies(), { initialValue: [] })
 
-  // updateWatchedMovies() {
-  //     this.watchedMovieService.getWatchedMovies(); //! SHOULD be forcing signal to update after post
-  // }
-
+  loadWatchedMovies(): void {
+    this.watchedMovieService.getWatchedMovies()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (movies: any[]) => {
+          this.watchedMovies.set(movies);
+        },
+        error: (error) => {
+          console.error('Failed to load watched movies:', error);
+        }
+      });
+  }
 }
