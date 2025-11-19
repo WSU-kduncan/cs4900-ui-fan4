@@ -5,14 +5,14 @@ import { WatchedMovieListComponent } from '../watched-movie-list.component/watch
 
 @Component({
   selector: 'app-watched-movie-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, ],
   templateUrl: './watched-movie-form.html',
   styleUrl: './watched-movie-form.scss',
 })
 export class WatchedMovieForm {
 
   watchedMovieService = inject(WatchedMovieService);
-  watchedMovieList = inject(WatchedMovieListComponent);
 
   private readonly fb = inject(FormBuilder);
 
@@ -36,14 +36,21 @@ export class WatchedMovieForm {
       return;
     }
 
-    const user = this.watchedMovieForm.get('user')?.value;
-    const movieID = this.watchedMovieForm.get('movieID')?.value;
-    const watchedDate = this.watchedMovieForm.get('watchedDate')?.value;
+  const user = this.watchedMovieForm.get('user')?.value;
+  const movieID = this.watchedMovieForm.get('movieID')?.value;
+  const watchedDate = this.watchedMovieForm.get('watchedDate')?.value;
 
-    this.watchedMovieService.createWatchedMovie({movieID,user,watchedDate})
+  this.watchedMovieService.createWatchedMovie({ movieID, user, watchedDate })
+    .subscribe({
+      next: (res) => {
+        console.log('Movie successfully saved:', res);
+        this.watchedMovieForm.reset();
 
-    this.watchedMovieForm.reset();
-
-    this.watchedMovieList.loadWatchedMovies();
+        this.watchedMovieService.needToUpdateSwitch.update(current => !current);
+      },
+      error: (err) => {
+        console.error('Failed to save movie:', err);
+      }
+    });
   }
 }

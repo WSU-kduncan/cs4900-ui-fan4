@@ -15,6 +15,14 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 })
 export class WatchedMovieListComponent {
 
+  constructor() {
+  effect(() => {
+    this.watchedMovieService.needToUpdateSwitch();
+    this.loadWatchedMovies();
+  });
+}
+
+
   watchedMovieService = inject(WatchedMovieService);
 
   newWatchedMovieDate = signal<string>('');
@@ -30,6 +38,7 @@ export class WatchedMovieListComponent {
       .subscribe({
         next: (movies: any[]) => {
           this.watchedMovies.set(movies);
+          console.log('Updated watched movies list');
         },
         error: (error) => {
           console.error('Failed to load watched movies:', error);

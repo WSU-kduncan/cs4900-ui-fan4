@@ -15,7 +15,10 @@ export class WatchedMovieService {
 
   constructor(private http: HttpClient){}
 
+  needToUpdateSwitch = signal(false); // Ask about in class
+
   createWatchedMovie(newWatchedMovie : WatchedMovie): Observable<WatchedMovie>{
+    console.log(newWatchedMovie);
     return this.http.post<WatchedMovie>('http://localhost:8080/Fan4/watched-movie', newWatchedMovie);
   }
 
