@@ -19,7 +19,5 @@ export class UserList {
 
   // Access the users signal from the service
   users = this.userService.users;
-
-  
 }
 
