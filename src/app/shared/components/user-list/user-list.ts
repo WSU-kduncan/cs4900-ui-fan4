@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { User } from '../../models/user.model';
 @Component({
   selector: 'app-user-list',
   imports: [CommonModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
+  standalone: true,
 })
 /**
  * The Component class
@@ -22,11 +23,3 @@ export class UserList {
   ]
 }
 
-/** 
- * Defines variables for User object
- *   TODO: I should put this in its own file so I can import it anywhere cleanly
- */
-export interface User {
-  id: string;
-  name: string;
-}
