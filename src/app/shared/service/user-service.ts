@@ -18,7 +18,10 @@ export class UserService {
   ]);
 
   // Method to add a new user
-  addUser(user: User) {
-    this.users.update(currentUsers => [...currentUsers, user]); // signal requires an update function to modify its value
+  addUser(username: string) {
+    const userId = (this.users().length + 1).toString();
+    const newUser: User = { id: userId, name: username };
+    this.users.update(currentUsers => [...currentUsers, newUser]); // signal requires an update function to modify its value
   }
+
 }
