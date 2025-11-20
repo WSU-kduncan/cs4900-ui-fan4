@@ -9,18 +9,10 @@
   @for (watchedMovie of this.watchedMovies(); track watchedMovie.user + '-' + watchedMovie.movieID) {
     <li class="watched-movie-item">
       <app-watched-movie-detail [watchedMovie]="watchedMovie" />
+      <button type="button"
+        (click)="deleteWatchedMovie(watchedMovie.movieID, watchedMovie.user)">Delete</button>
     </li>
   } @empty { <!-- Displays when watchedMovies is empty -->
     <p>There are no watched movies</p>
   }
 </ul>
-
-<!-- Depracated due to form usage
-<div class ="add-watched-movie">
-  <input type="text"
-    [value]="newWatchedMovieDate()"
-    (input)="newWatchedMovieDate.set(($event.target).value)"
-    placeholder="Enter watched date"
-  >
-  <button (click)="()">Add Watched Movie </button>
-</div> -->

@@ -45,4 +45,21 @@ export class WatchedMovieListComponent {
         }
       });
   }
+
+  deleteWatchedMovie(movieID: number,user: string) {
+    this.watchedMovieService.deleteWatchedMovie(movieID, user).subscribe({
+      next: (statusCode) => {
+        console.log('Delete successful, status:', statusCode);
+
+        // Force watchedMovieList to update
+        this.watchedMovieService.needToUpdateSwitch.update(current => !current)
+
+      },
+      error: (error) => {
+        console.error('Delete failed:', error);
+        this.watchedMovieService.needToUpdateSwitch.update(current => !current)
+      }
+    });
+  }
+
 }
