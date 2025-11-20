@@ -67,15 +67,15 @@ export class UserReviewList {
   }
 
   deleteReview(review: UserReview): void {
-    this.userService.deleteReview(review.username, review.movieID) //.subscribe({
-      //next: () => {
-        //console.log(`Deleted review for ${review.username} / movie ${review.movieID}`);
-        //// Trigger list refresh
+    this.userService.deleteReview(review.username, review.movieID).subscribe({
+      next: () => {
+        console.log(`Deleted review for ${review.username} / movie ${review.movieID}`);
+        // Trigger list refresh
         this.userService.needToUpdateSwitch.update(current => !current);
-        //},
-      //error: (err) => {
-        //console.error('Failed to delete review:', err);
-      //}
-    //});
+        },
+      error: (err) => {
+        console.error('Failed to delete review:', err);
+      }
+    });
   }
 }

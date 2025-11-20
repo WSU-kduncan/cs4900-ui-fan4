@@ -28,17 +28,8 @@ export class UserService {
     return this.http.post<UserReview>('http://localhost:8080/Fan4/review', review);
   }
 
-  reviews = signal<UserReview[]>([]); //Will remove this later
-
   deleteReview(username: string, movieID: number) {
-  // TODO: enable when backend supports DELETE
-  // return this.http.delete<void>(
-  //   `http://localhost:8080/Fan4/review?username=${username}&movieID=${movieID}`
-  // );
-  
-  // Local update only
-  this.reviews.update(r => r.filter(review => !(review.username === username && review.movieID === movieID)));
-}
-
+    return this.http.delete<void>(`http://localhost:8080/Fan4/review/by-id/username=${username}/movieID=${movieID}`);
+  }
   needToUpdateSwitch = signal(false);
 }
