@@ -29,7 +29,7 @@ export class UserService {
   }
 
   deleteReview(username: string, movieID: number) {
-    return this.http.delete<void>(`http://localhost:8080/Fan4/review/by-id/username=${username}/movieID=${movieID}`);
+    return this.http.delete<void>(`http://localhost:8080/Fan4/review/by-id/${username}/${movieID}`);
   }
   needToUpdateSwitch = signal(false);
 }
