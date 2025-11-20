@@ -15,6 +15,4 @@ import { CommonModule } from '@angular/common';
 export class UserDetail {
   // Required signal input provided by parent component
   user = input.required<User>();
-
-  
 }
