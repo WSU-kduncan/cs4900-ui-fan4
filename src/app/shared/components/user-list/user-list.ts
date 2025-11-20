@@ -21,7 +21,7 @@ export class UserList {
   private readonly userService = inject(UserService);
 
   // Access the users signal from the service
-  // Convert Observable to Signal
+  // Converts Observable to Signal
   users = toSignal(this.userService.getUsers(), { initialValue: [] });
 
   newUserName = signal(''); 
