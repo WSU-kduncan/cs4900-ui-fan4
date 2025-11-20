@@ -14,7 +14,7 @@
         <!-- For loop to list username of user -->
         @for (user of users(); track user.id){
             <li class="user-item">
-                {{ user.name }}
+                <app-user-detail [user]="user" />
             </li>
         } @empty {
             <!-- This shows only if the array is empty-->
