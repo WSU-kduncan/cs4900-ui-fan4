@@ -16,14 +16,7 @@ export class UserService {
   // Fake API endpoint
   private readonly apiUrl = 'https://jsonplaceholder.typicode.com/users';
 
-  // Data - Class Property (can be accessed in component and template)
-  users = signal<User[]>([
-    {id: '1', name: "asmith" },
-    {id: '2', name: "bwayne" },
-    {id: '3', name: "ckent" },
-    {id: '4', name: "jdoe" },
-    {id: '5', name: "tony_stark123" }
-  ]);
+  users = signal<UserDto[]>( [] );      // Signal to hold the list of users
 
   /**
    * GET request that fetches users from the API
@@ -35,10 +28,10 @@ export class UserService {
   }
 
   // Method to add a new user
-  addUser(username: string) {
-    const userId = (this.users().length + 1).toString();
-    const newUser: User = { id: userId, name: username };
-    this.users.update(currentUsers => [...currentUsers, newUser]); // signal requires an update function to modify its value
+  addUser(username: string, name: string) {
+    const birthdate = "";
+    const newUser: UserDto = {username: username, name: name, birthdate: birthdate};
+    //this.users.update(currentUsers => [...currentUsers, newUser]); // signal requires an update function to modify its value
   }
 
 }
