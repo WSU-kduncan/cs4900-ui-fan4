@@ -12,7 +12,7 @@
     <!-- List of usernames --> 
     <ul class="user-list">
         <!-- For loop to list username of user -->
-        @for (user of users(); track user.id){
+        @for (user of this.users(); track user.username){
             <li class="user-item">
                 <app-user-detail [user]="user" />
             </li>
