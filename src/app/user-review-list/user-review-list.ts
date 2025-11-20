@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { UserService, UserReview } from '../user.service';
 import { UserReviewDetail } from "../user-review-detail/user-review-detail";
@@ -11,30 +11,71 @@ import { UserReviewDetail } from "../user-review-detail/user-review-detail";
   templateUrl: './user-review-list.html',
   styleUrls: ['./user-review-list.scss'],
 })
-
 export class UserReviewList {
-  // Inject the service
+
   userService = inject(UserService);
 
-  reviews = toSignal(this.userService.getReviews(), { initialValue: [] });
-
-  // Signal for the input text
+  reviews = signal<UserReview[]>([]);
   newReviewText = signal('');
 
-  // Method to add a review via the service
-  addNewReview() {
-    if (!this.newReviewText()) return; // ignore empty input
+  constructor() {
+    // Effect: reload reviews whenever needToUpdateSwitch toggles
+    effect(() => {
+      this.userService.needToUpdateSwitch();
+      this.loadReviews();
+    });
+  }
 
-    this.userService.addReview({
-      username: 'new_user', // could be dynamic later
+  ngOnInit(): void {
+    this.loadReviews();
+  }
+
+  loadReviews(): void {
+    this.userService.getReviews().subscribe({
+      next: (reviews: UserReview[]) => {
+        this.reviews.set(reviews);
+        console.log('Updated reviews list');
+      },
+      error: (err) => {
+        console.error('Failed to load reviews:', err);
+      }
+    });
+  }
+
+  addNewReview() {
+    if (!this.newReviewText()) return;
+
+    const newReview: UserReview = {
+      username: 'asmith',
       movieID: 1,
       rating: 5,
       writtenReview: this.newReviewText(),
       reviewDate: new Date().toISOString()
-    });
+    };
 
-    this.newReviewText.set(''); // clear input
+    this.userService.createReview(newReview).subscribe({
+      next: (res) => {
+        console.log('Review successfully saved:', res);
+        this.newReviewText.set('');
+        // Toggle to refresh list
+        this.userService.needToUpdateSwitch.update(current => !current);
+      },
+      error: (err) => {
+        console.error('Failed to save review:', err);
+      }
+    });
   }
 
-  // Will probably need to implement a post method for the new review button.
+  deleteReview(review: UserReview): void {
+    this.userService.deleteReview(review.username, review.movieID) //.subscribe({
+      //next: () => {
+        //console.log(`Deleted review for ${review.username} / movie ${review.movieID}`);
+        //// Trigger list refresh
+        this.userService.needToUpdateSwitch.update(current => !current);
+        //},
+      //error: (err) => {
+        //console.error('Failed to delete review:', err);
+      //}
+    //});
+  }
 }

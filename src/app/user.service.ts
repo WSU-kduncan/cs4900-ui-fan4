@@ -24,7 +24,21 @@ export class UserService {
     return this.http.get<UserReview[]>('http://localhost:8080/Fan4/review');
   }
 
-   addReview(review: UserReview) {
-    this.userReviews.update(reviews => [...reviews, review]);
+  createReview(review: UserReview): Observable<UserReview> {
+    return this.http.post<UserReview>('http://localhost:8080/Fan4/review', review);
   }
+
+  reviews = signal<UserReview[]>([]); //Will remove this later
+
+  deleteReview(username: string, movieID: number) {
+  // TODO: enable when backend supports DELETE
+  // return this.http.delete<void>(
+  //   `http://localhost:8080/Fan4/review?username=${username}&movieID=${movieID}`
+  // );
+  
+  // Local update only
+  this.reviews.update(r => r.filter(review => !(review.username === username && review.movieID === movieID)));
+}
+
+  needToUpdateSwitch = signal(false);
 }

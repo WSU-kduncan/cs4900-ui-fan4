@@ -10,7 +10,10 @@
 @if (reviews().length > 0) {
   <ul>
     @for (review of reviews(); track review.movieID + '-' + review.username) {
-      <app-user-review-detail [review]="review" />
+      <li> 
+        <app-user-review-detail [review]="review" />
+        <button (click)="deleteReview(review)">Delete</button>
+      </li> 
     }
   </ul>
 } @else {
