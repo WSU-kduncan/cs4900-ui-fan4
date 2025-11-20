@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
 export interface WatchedMovie{
   user: string;
@@ -24,5 +24,10 @@ export class WatchedMovieService {
 
   getWatchedMovies(): Observable<WatchedMovie[]>{
     return this.http.get<WatchedMovie[]>('http://localhost:8080/Fan4/watched-movie'); // Required adding CORS file in API
+  }
+
+  deleteWatchedMovie(movieID: number, user: string): Observable<HttpResponse<any>> {
+    return this.http.delete<WatchedMovie>(`http://localhost:8080/Fan4/watched-movie/${movieID}/${user}`, { observe: 'response' }).pipe(
+      map((response: { status: any; }) => response.status));
   }
 }
