@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { User } from '../../models/user.model';
+import { UserDto } from '../../models/user.dto';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,5 +14,5 @@ import { CommonModule } from '@angular/common';
  */
 export class UserDetail {
   // Required signal input provided by parent component
-  user = input.required<User>();
+  user = input.required<UserDto>();
 }
