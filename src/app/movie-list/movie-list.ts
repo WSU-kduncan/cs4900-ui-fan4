@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect, inject, signal } from '@angular/core';
+import { CommonModule, SlicePipe } from '@angular/common';
 import { MovieService, Movie } from '../movie-service';
 import { MovieDetail } from '../movie-detail/movie-detail';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { errorContext } from 'rxjs/internal/util/errorContext';
 
 @Component({
   selector: 'app-movie-list',
@@ -14,22 +15,65 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class MovieListComponent {
   movieService = inject(MovieService);
 
-  movies = toSignal(this.movieService.getMovies(), { initialValue: [] });
-
+  movies = signal<Movie[]>([]);
   newMovieTitle = signal('');
+
+  constructor() {
+    effect(() => {
+      this.movieService.refreshList();
+      this.loadMovies();
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadMovies();
+  }
+
+  loadMovies(): void {
+    this.movieService.getMovies().subscribe({
+      next: (movies: Movie[]) => {
+        this.movies.set(movies);
+        console.log('Updated movie list');
+      },
+      error: (err) => {
+        console.error('Could not load movies:', err);
+      }
+    });
+  }
 
   addMovie() {
     if (!this.newMovieTitle()) return;
 
-    const newId = this.movies().length + 1;
-    this.movieService.addMovie({
-      movieID: newId,
+    const newMovie: Movie = {
       title: this.newMovieTitle(),
       director: 'Unknown',
       genre: 'Unknown',
-      releaseDate: new Date(),
-    });
+      releaseDate: new Date()
+    };
 
-    this.newMovieTitle.set('');
+    this.movieService.addMovie(newMovie).subscribe({
+      next: (res) => {
+        console.log('Movie successfully added:', res);
+        this.newMovieTitle.set('');
+        this.movieService.refreshList.update(current => !current);
+      },
+      error: (err) => {
+        console.error('Failed to add movie:', err);
+      }
+    });
+  }
+
+  deleteMovie(movieID: number) {
+    this.movieService.deleteMovie(movieID).subscribe({
+      next: (statusCode) => {
+        console.log('Delete successful, status: ', statusCode);
+
+        this.movieService.refreshList.update(current => !current)
+      },
+      error: (error) => {
+        console.error('Delete failed: ', error);
+        this.movieService.refreshList.update(current => !current)
+      }
+    })
   }
 }

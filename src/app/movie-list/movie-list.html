@@ -11,7 +11,11 @@
 @if (movies().length > 0) {
     <ul>
         @for(movie of movies(); track movie.movieID) {
-            <app-movie-detail [movie]="movie"></app-movie-detail>
+            <li>
+                <app-movie-detail [movie]="movie"></app-movie-detail>
+                <button type="button"
+                    (click)="deleteMovie(movie.movieID)">Delete</button>
+            </li>
         }   
     </ul>
 } @else {

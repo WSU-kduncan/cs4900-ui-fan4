@@ -1,9 +1,9 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 export interface Movie {
-  movieID: number;
+  movieID?: number | undefined;
   title: string;
   director: string;
   genre: string;
@@ -23,7 +23,14 @@ export class MovieService {
     return this.http.get<Movie[]>('http://localhost:8080/Fan4/movie');
   }
 
-  addMovie(movie: Movie) {
-    this.movies.update(movies => [...movies, movie]);
+  addMovie(movie: Movie): Observable<Movie> {
+    return this.http.post<Movie>('http://localhost:8080/Fan4/movie', movie);
   }
+
+  deleteMovie(movieID: number): Observable<HttpResponse<any>> {
+    return this.http.delete<Movie>('http://localhost:8080/Fan4/movie/${movieID}', { observe: 'response' }).pipe(
+      map((response: { status: any; }) => response.status));
+  }
+
+  refreshList = signal(false);
 }
