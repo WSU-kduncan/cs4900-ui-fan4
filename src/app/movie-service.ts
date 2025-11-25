@@ -3,7 +3,7 @@ import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 export interface Movie {
-  movieID?: number | undefined;
+  movieID?: any;
   title: string;
   director: string;
   genre: string;
@@ -28,7 +28,7 @@ export class MovieService {
   }
 
   deleteMovie(movieID: number): Observable<HttpResponse<any>> {
-    return this.http.delete<Movie>('http://localhost:8080/Fan4/movie/${movieID}', { observe: 'response' }).pipe(
+    return this.http.delete<Movie>(`http://localhost:8080/Fan4/movie/${movieID}`, { observe: 'response' }).pipe(
       map((response: { status: any; }) => response.status));
   }
 
