@@ -15,7 +15,7 @@ export class WatchedMovieService {
 
   constructor(private http: HttpClient){}
 
-  needToUpdateSwitch = signal(false); // Ask about in class
+  needToUpdateSwitch = signal(false);
 
   createWatchedMovie(newWatchedMovie : WatchedMovie): Observable<WatchedMovie>{
     console.log(newWatchedMovie);
