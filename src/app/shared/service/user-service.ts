@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserDto } from '../models/user.dto';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 // This allows UserService to be available application-wide
@@ -24,7 +24,13 @@ export class UserService {
    */
   getUsers(): Observable<UserDto[]> {
     
-    return this.http.get<UserDto[]>(this.apiUrl);
+    return this.http.get<UserDto[]>(this.apiUrl)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching users:', error);
+          return of([]); // Return an empty array on error
+        })
+      )
   }
 
   // Method to add a new user
