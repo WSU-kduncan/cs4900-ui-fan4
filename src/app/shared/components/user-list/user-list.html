@@ -3,7 +3,7 @@
     <h3>Users</h3>
 
     <!-- Check if users array has data -->
-    @if (users.length > 0) {
+    @if (users().length > 0) {
         <div class="array-check-message">
             <p>The users array contains data</p>
         </div>
@@ -24,6 +24,7 @@
         }
     </ul>
 
+    <!-- TODO: Add functionality to add a new user, friends list?-->
     <input 
         type="text"
         [(ngModel)]="newUserName"
