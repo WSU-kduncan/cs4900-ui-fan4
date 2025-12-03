@@ -1,0 +1,18 @@
+<h2>Watched Movies</h2>
+
+<!-- Displays message when array has objects -->
+@if (this.watchedMovies.length > 0){
+  <p>Displaying {{ this.watchedMovies().length }} watched movies</p>
+}
+<!-- Displays Objects -->
+<ul>
+  @for (watchedMovie of this.watchedMovies(); track watchedMovie.user + '-' + watchedMovie.movieID) {
+    <li class="watched-movie-item">
+      <app-watched-movie-detail [watchedMovie]="watchedMovie" />
+      <button type="button"
+        (click)="deleteWatchedMovie(watchedMovie.movieID, watchedMovie.user)">Delete</button>
+    </li>
+  } @empty { <!-- Displays when watchedMovies is empty -->
+    <p>There are no watched movies</p>
+  }
+</ul>
