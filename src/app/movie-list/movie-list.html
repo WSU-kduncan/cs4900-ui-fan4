@@ -1,17 +1,12 @@
 <div class="header"><h1>Movies</h1></div>
 
-<div class ="add-movie">
-<input type="text"
-    [value]="newMovieTitle()"
-    (input)="newMovieTitle.set($any($event.target).value)"
-    placeholder="Enter New Movie Title">
-<button (click)="addMovie()">Add Movie</button>
-</div>
-
 @if (movies().length > 0) {
-    <ul>
+    <ul class="movie-grid">
         @for(movie of movies(); track movie.movieID) {
-            <li>
+            <li class="movie-block">
+                <img class="thumbnail" 
+                    [src]="movie.thumbnailUrl" 
+                    alt="{{ movie.title }}" />
                 <app-movie-detail [movie]="movie"></app-movie-detail>
                 <button type="button"
                     (click)="deleteMovie(movie.movieID)">Delete</button>

@@ -8,6 +8,7 @@ export interface Movie {
   director: string;
   genre: string;
   releaseDate: Date;
+  thumbnailUrl?: string;
 }
 
 @Injectable({

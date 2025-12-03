@@ -18,6 +18,13 @@ export class MovieListComponent {
   movies = signal<Movie[]>([]);
   newMovieTitle = signal('');
 
+  thumbnailMapByTitle: Record<string, string> = {
+    "The Matrix": "/matrixThumbnail.png",
+    "Inception": "/inceptionThumbnail.png",
+    "The Dark Knight": "/darkKnightThumbnail.png",
+    "Interstellar": "/interstellarThumbnail.png"
+  };
+
   constructor() {
     effect(() => {
       this.movieService.refreshList();
@@ -32,8 +39,12 @@ export class MovieListComponent {
   loadMovies(): void {
     this.movieService.getMovies().subscribe({
       next: (movies: Movie[]) => {
-        this.movies.set(movies);
-        console.log('Updated movie list');
+        const moviesWithThumbs = movies.map(m => ({
+          ...m,
+          thumbnailUrl: this.thumbnailMapByTitle[m.title] || "/fallback.png"
+        }));
+        this.movies.set(moviesWithThumbs);
+        console.log('Updated movie list with thumbnails');
       },
       error: (err) => {
         console.error('Could not load movies:', err);
