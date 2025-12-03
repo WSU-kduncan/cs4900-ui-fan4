@@ -1,0 +1,21 @@
+<div class ="header"><h1>User Reviews</h1></div>
+
+<div class ="add-review">
+<input type="text" 
+       [value]="newReviewText()" 
+       (input)="newReviewText.set($any($event.target).value)" 
+       placeholder="Write a review">
+  <button (click)="addNewReview()">Add Review</button>
+</div>
+@if (reviews().length > 0) {
+  <ul>
+    @for (review of reviews(); track review.movieID + '-' + review.username) {
+      <li> 
+        <app-user-review-detail [review]="review" />
+        <button (click)="deleteReview(review)">Delete</button>
+      </li> 
+    }
+  </ul>
+} @else {
+  <p>No reviews available.</p>
+}
