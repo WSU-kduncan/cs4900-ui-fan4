@@ -1,11 +1,15 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ɵbypassSanitizationTrustResourceUrl } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MovieListComponent } from './movie-list/movie-list';
 import { MovieForm } from './movie-form/movie-form';
+import { UserList } from './shared/components/user-list/user-list';
+import { WatchedMovieListComponent } from "./watched-movie-list.component/watched-movie-list.component";
+import { WatchedMovieForm } from "./watched-movie-form/watched-movie-form";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MovieListComponent, MovieForm],
+  standalone: true,
+  imports: [WatchedMovieListComponent, WatchedMovieForm, RouterOutlet, UserList, MovieListComponent, MovieForm],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
