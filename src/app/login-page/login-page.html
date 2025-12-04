@@ -7,9 +7,10 @@
 <main class="login-page">
   <div class="login-card">
 
+<div *ngIf="errorMessage()">{{ errorMessage() }}</div>
+
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
-      <!-- Username -->
       <div class="form-field">
         <label for="username">USERNAME</label>
         <input
@@ -20,7 +21,6 @@
         />
       </div>
 
-      <!-- Password -->
       <div class="form-field">
         <label for="password">PASSWORD</label>
         <input
@@ -31,15 +31,12 @@
         />
       </div>
 
-      <!-- Forgot password -->
       <div class="forgot-password">
         <a routerLink="/forgot-password">Forgot Password?</a>
       </div>
 
-      <!-- Buttons -->
       <div class="login-actions">
         <button type="submit" class="login-btn">LOGIN</button>
-
         <button 
           type="button" 
           class="register-btn"
