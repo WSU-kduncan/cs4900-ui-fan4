@@ -3,13 +3,13 @@
 @if (movies().length > 0) {
     <ul class="movie-grid">
         @for(movie of movies(); track movie.movieID) {
-            <li class="movie-block">
+            <li class="movie-block" (click)="goToMovie(movie.movieID)">
                 <img class="thumbnail" 
                     [src]="movie.thumbnailUrl" 
                     alt="{{ movie.title }}" />
                 <app-movie-detail [movie]="movie"></app-movie-detail>
                 <button type="button"
-                    (click)="deleteMovie(movie.movieID)">Delete</button>
+                    (click)="deleteMovie(movie.movieID); $event.stopPropagation()">Delete</button>
             </li>
         }   
     </ul>

@@ -1,21 +1,68 @@
-<div class ="header"><h1>User Reviews</h1></div>
+<div class="movie-review-page">
+  <!-- Back Button -->
+  <button class="back-btn" (click)="goBack()">← Back to Movies</button>
 
-<div class ="add-review">
-<input type="text" 
-       [value]="newReviewText()" 
-       (input)="newReviewText.set($any($event.target).value)" 
-       placeholder="Write a review">
-  <button (click)="addNewReview()">Add Review</button>
-</div>
-@if (reviews().length > 0) {
-  <ul>
-    @for (review of reviews(); track review.movieID + '-' + review.username) {
-      <li> 
-        <app-user-review-detail [review]="review" />
-        <button (click)="deleteReview(review)">Delete</button>
-      </li> 
+  <!-- Movie Info Section (hardcoded for now) -->
+  <section class="movie-info">
+    <div class="movie-left">
+      <div class="thumbnail-container">
+        <img class="movie-thumbnail" 
+             src="/matrixThumbnail.png" 
+             alt="Movie Poster" />
+      </div>
+      <button class="review-btn" (click)="toggleReviewForm()">Review</button>
+    </div>
+
+    <div class="movie-right">
+      <h1 class="movie-title">Movie #{{ movieId() }}</h1>
+      
+      <div class="rating-badge">--/10</div>
+      
+      <p class="director">Director: --</p>
+      
+      <h3 class="synopsis-heading">Synopsis</h3>
+      <div class="synopsis-box">
+        <p><!-- Synopsis can go here later --></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Review Form (toggleable) -->
+  @if (showReviewForm()) {
+    <section class="add-review">
+      <h3>Write Your Review</h3>
+      <textarea 
+        [value]="newReviewText()" 
+        (input)="newReviewText.set($any($event.target).value)" 
+        placeholder="Share your thoughts about this movie..."
+        rows="4">
+      </textarea>
+      <button class="submit-btn" (click)="addNewReview()">Submit Review</button>
+    </section>
+  }
+
+  <!-- User Reviews Section -->
+  <section class="reviews-section">
+    <h2 class="reviews-heading">User Reviews</h2>
+    
+    @if (reviews().length > 0) {
+      <ul class="reviews-list">
+        @for (review of reviews(); track review.movieID + '-' + review.username) {
+          <li class="review-card">
+            <div class="review-header">
+              <span class="review-user">{{ review.username }}</span>
+              <span class="review-rating">{{ review.rating }}/10</span>
+            </div>
+            <p class="review-text">{{ review.writtenReview }}</p>
+            <div class="review-footer">
+              <span class="review-date">{{ review.reviewDate }}</span>
+              <button class="delete-btn" (click)="deleteReview(review)">Delete</button>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="no-reviews">No reviews yet. Be the first to review!</p>
     }
-  </ul>
-} @else {
-  <p>No reviews available.</p>
-}
+  </section>
+</div>

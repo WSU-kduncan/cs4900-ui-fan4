@@ -1,5 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule, SlicePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { MovieService, Movie } from '../movie-service';
 import { MovieDetail } from '../movie-detail/movie-detail';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -14,6 +15,11 @@ import { errorContext } from 'rxjs/internal/util/errorContext';
 })
 export class MovieListComponent {
   movieService = inject(MovieService);
+  router = inject(Router);
+
+  goToMovie(movieID: number) {
+    this.router.navigate(['/movie', movieID]);
+  }
 
   movies = signal<Movie[]>([]);
   newMovieTitle = signal('');
