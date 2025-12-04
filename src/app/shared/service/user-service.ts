@@ -14,7 +14,7 @@ export class UserService {
   private readonly http = inject(HttpClient);
 
   // Fake API endpoint
-  private readonly apiUrl = 'https://localhost:8080/Fan4/user';
+  private readonly apiUrl = 'https://localhost:8080/Fan4';
 
   users = signal<UserDto[]>( [] );      // Signal to hold the list of users
 
@@ -24,7 +24,7 @@ export class UserService {
    */
   getUsers(): Observable<UserDto[]> {
     
-    return this.http.get<UserDto[]>(this.apiUrl)
+    return this.http.get<UserDto[]>(`${this.apiUrl}/user`)
       .pipe(
         catchError(error => {
           console.error('Error fetching users:', error);
