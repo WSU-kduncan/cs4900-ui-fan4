@@ -1,0 +1,153 @@
+@use 'sass:color';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ============================================================================
+// Login Page Layout
+// ============================================================================
+
+.login-page {
+  @include flex-column-center;
+  min-height: 100vh;
+  background: $off-white;
+  padding: $spacing-xl;
+
+  @include mobile-only {
+    padding: $spacing-lg;
+  }
+}
+
+// ============================================================================
+// Brand Logo / Title
+// ============================================================================
+
+.login-title {
+  font-family: $font-display; // use your decorative font here
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: $font-weight-bold;
+  color: $primary-color;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: $spacing-2xl;
+}
+
+// ============================================================================
+// Login Card Container
+// ============================================================================
+
+.login-card {
+  @include card($spacing-xl, $shadow-md);
+  width: min(420px, 100%);
+  text-align: center;
+
+  @include mobile-only {
+    padding: $spacing-lg;
+  }
+}
+
+// ============================================================================
+// Form Controls
+// ============================================================================
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  label {
+    font-size: $font-size-sm;
+    color: $secondary-color;
+    margin-bottom: $spacing-xs;
+    font-weight: $font-weight-medium;
+  }
+
+  input {
+    width: 100%;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-lg;
+    border: 1px solid $border-light;
+    font-size: $font-size-base;
+    background: rgba(255, 255, 255, 0.8);
+    transition: border-color $transition-normal;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+    }
+  }
+}
+
+// ============================================================================
+// "Forgot Password"
+// ============================================================================
+
+.forgot-password {
+  text-align: right;
+  width: 100%;
+  margin-top: -$spacing-sm;
+
+  a {
+    font-size: $font-size-sm;
+    color: $secondary-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============================================================================
+// Buttons
+// ============================================================================
+
+.login-actions {
+  margin-top: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.login-btn {
+  @include button-base;
+  @include button-variant($primary-color);
+  width: 100%;
+  font-size: $font-size-lg;
+  padding-block: $spacing-md;
+}
+
+.register-btn {
+  @include button-base;
+  @include button-variant(transparent);
+  border: 2px solid $primary-color;
+  color: $primary-color;
+  width: 100%;
+  font-size: $font-size-lg;
+  padding-block: $spacing-md;
+
+  &:hover {
+    background: rgba($primary-color, 0.05);
+  }
+}
+
+// ============================================================================
+// Responsive tweaks
+// ============================================================================
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: $spacing-lg $spacing-md;
+  }
+
+  .login-form {
+    gap: $spacing-md;
+  }
+}

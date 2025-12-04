@@ -1,0 +1,57 @@
+<header class="site-header">
+  <div class="logo login-title login-title--striped">
+    CollectiViews
+  </div>
+</header>
+
+<main class="login-page">
+  <div class="login-card">
+
+    <form class="login-form" (ngSubmit)="onLogin()">
+
+      <!-- Username -->
+      <div class="form-field">
+        <label for="username">USERNAME</label>
+        <input 
+          id="username"
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="form-field">
+        <label for="password">PASSWORD</label>
+        <input 
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <!-- Forgot password -->
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+      </div>
+
+      <!-- Buttons -->
+      <div class="login-actions">
+        <button type="submit" class="login-btn">LOGIN</button>
+
+        <button 
+          type="button" 
+          class="register-btn"
+          routerLink="/register"
+        >
+          REGISTER ACCOUNT
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</main>
