@@ -1,0 +1,154 @@
+// Color palette (from mockup)
+$cream-bg: #F5F0E1;
+$orange-accent: #E66B00;
+$orange-dark: #CC5500;
+$dark-gray: #4A4A4A;
+$nav-bg: #EBE6D3;
+$border-color: #C4BFAE;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: $cream-bg;
+}
+
+// Header with logo
+.site-header {
+  background-color: $cream-bg;
+  padding: 24px 40px 16px;
+  text-align: center;
+  
+  .logo {
+    font-family: 'Times New Roman', Georgia, serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: $orange-accent;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0 $orange-dark;
+  }
+}
+
+// Navigation bar
+.main-nav {
+  display: flex;
+  align-items: center;
+  background-color: $nav-bg;
+  padding: 0 20px;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  border-right: 1px solid $border-color;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 16px 40px;
+  cursor: pointer;
+  color: $dark-gray;
+  transition: color 0.2s ease;
+  
+  &:first-child {
+    border-left: 1px solid $border-color;
+  }
+  
+  &.active {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+  
+  &:hover {
+    color: $orange-accent;
+  }
+}
+
+.search-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 20px;
+  background: #FFFEF9;
+  border: 1px solid $border-color;
+  border-radius: 2px;
+}
+
+.search-prefix {
+  padding: 10px 8px 10px 12px;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.search-btn {
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid $border-color;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  color: $dark-gray;
+}
+
+.profile-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 8px;
+  
+  .profile-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #FFEEDD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+}
+
+// Main content area
+.content {
+  padding: 20px 40px;
+}
+
+.results-heading {
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: $dark-gray;
+  margin-bottom: 16px;
+}
+
+.movie-grid-container {
+  background-color: #5A5A5A;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
