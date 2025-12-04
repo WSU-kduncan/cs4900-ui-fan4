@@ -14,7 +14,7 @@ export class UserService {
   private readonly http = inject(HttpClient);
 
   // Fake API endpoint
-  private readonly apiUrl = 'https://jsonplaceholder.typicode.com/users';
+  private readonly apiUrl = 'https://localhost:8080/Fan4/user';
 
   users = signal<UserDto[]>( [] );      // Signal to hold the list of users
 
