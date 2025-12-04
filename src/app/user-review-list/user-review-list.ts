@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, signal, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, inject, signal, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, UserReview } from '../user.service';
 import { UserReviewDetail } from "../user-review-detail/user-review-detail";
@@ -16,6 +17,7 @@ export class UserReviewList implements OnInit {
   userService = inject(UserService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  destroyRef = inject(DestroyRef);
 
   reviews = signal<UserReview[]>([]);
   newReviewText = signal('');
@@ -33,7 +35,9 @@ export class UserReviewList implements OnInit {
 
   ngOnInit(): void {
     // Get movieId from route params
-    this.route.params.subscribe(params => {
+    this.route.params.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(params => {
       const id = +params['id'];
       this.movieId.set(id);
       this.loadReviews();
