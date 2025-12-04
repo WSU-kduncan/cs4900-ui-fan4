@@ -169,11 +169,11 @@ $transition-normal: 0.25s ease;
 .forgot-password {
   text-align: right;
   width: 100%;
-  margin-top: -$spacing-sm;
+  margin-top: $spacing-sm; // <-- FIX: give it space instead of pulling it upward
 
   a {
     font-size: $font-size-sm;
-    color: $dark-gray;
+    color: #007bff; // <-- FIX: make link blue
     text-decoration: none;
 
     &:hover {

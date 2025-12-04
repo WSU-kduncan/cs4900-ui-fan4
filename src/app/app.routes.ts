@@ -4,7 +4,7 @@ import { UserReviewList } from './user-review-list/user-review-list';
 import { LoginPage } from './login-page/login-page';
 
 export const routes: Routes = [
-  { path: '', component: HomePage },
+  { path: 'movies', component: HomePage },
   { path: 'movie/:id', component: UserReviewList },
   { path: 'login', component: LoginPage},
 
@@ -12,13 +12,13 @@ export const routes: Routes = [
     // Default redirect
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
 
   // Wildcard route - must be last
   {
     path: '**',
-    redirectTo: '/movies'
+    redirectTo: 'login'
   }
 ];

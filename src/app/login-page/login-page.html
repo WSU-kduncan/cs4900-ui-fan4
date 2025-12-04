@@ -9,17 +9,14 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
-
       <!-- Username -->
       <div class="form-field">
         <label for="username">USERNAME</label>
         <input
-            id="username"
-            type="text"
-            [ngModel]="username()"
-            (ngModelChange)="username.set($event)"
-            name="username"
-            required
+          id="username"
+          type="text"
+          formControlName="username"
+          required
         />
       </div>
 
@@ -27,13 +24,11 @@
       <div class="form-field">
         <label for="password">PASSWORD</label>
         <input
-            id="password"
-            type="password"
-            [ngModel]="password()"
-            (ngModelChange)="password.set($event)"
-            name="password"
-            required
-    />
+          id="password"
+          type="password"
+          formControlName="password"
+          required
+        />
       </div>
 
       <!-- Forgot password -->
