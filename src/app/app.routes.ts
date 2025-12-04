@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomePage } from './home-page/home-page';
 import { UserReviewList } from './user-review-list/user-review-list';
-import { LoginPage } from './user-login-page/login-page';
+import { LoginPage } from './login-page/login-page';
 
 export const routes: Routes = [
   { path: '', component: HomePage },
@@ -19,6 +19,6 @@ export const routes: Routes = [
   // Wildcard route - must be last
   {
     path: '**',
-    redirectTo: '/login'
+    redirectTo: '/movies'
   }
 ];

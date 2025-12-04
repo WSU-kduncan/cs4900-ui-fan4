@@ -7,30 +7,33 @@
 <main class="login-page">
   <div class="login-card">
 
-    <form class="login-form" (ngSubmit)="onLogin()">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
 
       <!-- Username -->
       <div class="form-field">
         <label for="username">USERNAME</label>
-        <input 
-          id="username"
-          type="text"
-          [(ngModel)]="username"
-          name="username"
-          required
+        <input
+            id="username"
+            type="text"
+            [ngModel]="username()"
+            (ngModelChange)="username.set($event)"
+            name="username"
+            required
         />
       </div>
 
       <!-- Password -->
       <div class="form-field">
         <label for="password">PASSWORD</label>
-        <input 
-          id="password"
-          type="password"
-          [(ngModel)]="password"
-          name="password"
-          required
-        />
+        <input
+            id="password"
+            type="password"
+            [ngModel]="password()"
+            (ngModelChange)="password.set($event)"
+            name="password"
+            required
+    />
       </div>
 
       <!-- Forgot password -->

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,29 +9,31 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.html',
   styleUrls: ['./login-page.scss']
 })
-export class LoginComponent {
+export class LoginPage {
 
-  username: string = '';
-  password: string = '';
-  errorMessage = "";
+  username = signal<string>('');
+  password = signal<string>('');
+  errorMessage = signal<string>('');
+  loginForm: FormGroup;
 
   constructor(
     private router: Router
   ) {}
 
   onLogin() {
-    this.errorMessage = '';
 
-    if (!this.username.trim() || !this.password.trim()) {
-      this.errorMessage = 'Username and password are required.';
+    this.errorMessage.set('');
+
+    if (!this.username() || !this.password()) {
+      this.errorMessage.set('Username and password are required.');
       return;
     }
 
     // Hardcoded user password check
-    if (this.username === 'asmith' && this.password === 'password') {
+    if (this.username() === 'asmith' && this.password() === 'password') {
       this.router.navigate(['/movies']);
     } else {
-      this.errorMessage = 'Invalid username or password.';
+      this.errorMessage.set('Invalid username or password.');
     }
   }
 }
