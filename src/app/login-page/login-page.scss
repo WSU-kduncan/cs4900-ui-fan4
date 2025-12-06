@@ -1,86 +1,48 @@
-// ============================================================================
-// Local Variables (Replacing external variables/mixins)
-// ============================================================================
-
 $cream-bg: #F5F0E1;
 $orange-accent: #E66B00;
-$orange-dark: #CC5500;
 $dark-gray: #4A4A4A;
-$nav-bg: #EBE6D3;
 $border-color: #C4BFAE;
-
+  
 $spacing-xs: 4px;
 $spacing-sm: 8px;
 $spacing-md: 12px;
 $spacing-lg: 20px;
 $spacing-xl: 32px;
 $spacing-2xl: 48px;
-
+  
 $font-display: 'Poppins', sans-serif;
-$font-size-sm: 0.875rem; 
+$font-size-sm: 0.875rem;
 $font-size-base: 1rem;
 $font-size-lg: 1.25rem;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
-
+  
 $border-radius-lg: 10px;
 $shadow-md: 0 4px 15px rgba(0,0,0,0.1);
 $transition-normal: 0.25s ease;
-
-@mixin flex-column-center {
+  
+// ============================================================================
+// Login Page Layout
+// ============================================================================
+  
+.login-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-@mixin card($padding, $shadow) {
-  background: white;
-  padding: $padding;
-  border-radius: 12px;
-  box-shadow: $shadow;
-}
-
-@mixin button-base {
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background $transition-normal, color $transition-normal;
-}
-
-@mixin button-variant($bg) {
-  background: $bg;
-  color: white;
-  &:hover {
-    background: darken($bg, 8%);
-  }
-}
-
-@mixin mobile-only {
-  @media (max-width: 480px) {
-    @content;
-  }
-}
-
-// ============================================================================
-// Login Page Layout
-// ============================================================================
-
-.login-page {
-  @include flex-column-center;
   min-height: 100vh;
   background: $cream-bg;
   padding: $spacing-xl;
-
-  @include mobile-only {
+  
+  @media (max-width: 480px) {
     padding: $spacing-lg;
   }
 }
-
+  
 // ============================================================================
 // Brand Logo / Title
 // ============================================================================
-
+  
 .login-title {
   font-family: 'Monoton';
   font-size: 4rem;
@@ -91,52 +53,55 @@ $transition-normal: 0.25s ease;
   letter-spacing: 2px;
   margin-bottom: $spacing-2xl;
 }
-
+  
 // ============================================================================
 // Login Card Container
 // ============================================================================
-
+  
 .login-card {
   box-sizing: border-box;
-
+  
   *,
   *::before,
   *::after {
     box-sizing: border-box;
   }
-
-  @include card($spacing-xl, $shadow-md);
+  
+  background: white;
+  padding: $spacing-xl;
+  border-radius: 12px;
+  box-shadow: $shadow-md;
   width: min(420px, 100%);
   text-align: center;
-
-  @include mobile-only {
+  
+  @media (max-width: 480px) {
     padding: $spacing-lg;
   }
 }
-
+  
 // ============================================================================
 // Form Controls
 // ============================================================================
-
+  
 .login-form {
   display: flex;
   flex-direction: column;
   gap: $spacing-lg;
 }
-
+  
 .form-field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-
+  
   label {
     font-size: $font-size-sm;
     color: $dark-gray;
     margin-bottom: $spacing-xs;
     font-weight: $font-weight-medium;
   }
-
+  
   input {
     width: 100%;
     padding: $spacing-md $spacing-lg;
@@ -145,7 +110,7 @@ $transition-normal: 0.25s ease;
     font-size: $font-size-base;
     background: rgba(255, 255, 255, 0.8);
     transition: border-color $transition-normal;
-
+  
     &:focus {
       outline: none;
       border-color: $orange-accent;
@@ -153,101 +118,79 @@ $transition-normal: 0.25s ease;
     }
   }
 }
-
+  
 // ============================================================================
 // "Forgot Password"
 // ============================================================================
-
+  
 .forgot-password {
   text-align: right;
   width: 100%;
   margin-top: $spacing-sm;
-
+  
   a {
     font-size: $font-size-sm;
     color: #007bff;
     text-decoration: none;
-
+  
     &:hover {
       text-decoration: underline;
     }
   }
 }
-
+  
 // ============================================================================
 // Buttons
 // ============================================================================
-
+  
 .login-actions {
   margin-top: $spacing-lg;
   display: flex;
   flex-direction: column;
   gap: $spacing-md;
 }
-
+  
 .login-btn {
-  @include button-base;
-  @include button-variant($orange-accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background $transition-normal, color $transition-normal;
+  background: $orange-accent;
+  color: white;
   width: 100%;
   font-size: $font-size-lg;
   padding-block: $spacing-md;
+  
+  &:hover {
+    background: darken($orange-accent, 8%);
+  }
 }
-
+  
 .register-btn {
-  @include button-base;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background $transition-normal, color $transition-normal;
   background: transparent;
   border: 2px solid $orange-accent;
   color: $orange-accent;
   width: 100%;
   font-size: $font-size-lg;
   padding-block: $spacing-md;
-
+  
   &:hover {
     background: rgba(230, 107, 0, 0.08);
   }
 }
-
+  
 // ============================================================================
+// Error Message
 // ============================================================================
-
-@media (max-width: 480px) {
-  .login-card {
-    box-sizing: border-box;
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
-    @include card($spacing-xl, $shadow-md);
-    width: min(420px, 100%);
-    text-align: center;
-
-    @include mobile-only {
-      padding: $spacing-lg;
-    }
-  }
-
-  .login-form {
-    gap: $spacing-md;
-  }
-
-  .logo {
-    font-family: 'Monoton', cursive;
-    font-size: 4rem;
-    background: linear-gradient(90deg, #f07a18 0%, #f7b733 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.1em;
-  }
-
-  .error-message {
+  
+.error-message {
   color: red;
   font-size: $font-size-sm;
   margin-bottom: $spacing-md;
   text-align: left;
   width: 100%;
-}
-
 }
