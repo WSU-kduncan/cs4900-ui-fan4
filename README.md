@@ -11,7 +11,9 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 NOTE: The application will be updated automatically whenever a new change is saved in the code.
 
-### Web application demos
+# Web application demos
+Description: The CollectiViews web application was created using HTML, CSS, and TypeScript through the Angular framework. The project utilizes standalone component design. At the moment, a user can select a movie from available movies and leave a review. The review is then saved and updated in the database. The login page is not fully functional as no user authentication system is implemented. Below are demonstrations of these functionalities.
+
 ## Login
 
 At the default URL, the user is greeted with a login page. The user can use their credentials to enter the web application.
