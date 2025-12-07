@@ -31,8 +31,9 @@
       watchedDate: this.watchedMovieEntry()?.watchedDate || '0000-00-00'
     }"></app-watched-movie-detail>
   } @else {
-    <p>Have you watched this movie?</p>
-    <button type="button" (click)="this.deleteWatchedMovie(this.movieId(),this.loginService.username)">Mark as Watched</button>
+    <p>Have you watched this movie? Enter the info below:</p>
+    <app-watched-movie-form></app-watched-movie-form>
+    <!-- <button type="button" (click)="this.deleteWatchedMovie(this.movieId(),this.loginService.username)">Mark as Watched</button> -->
   }
   
   <!-- Review Form (toggleable) -->

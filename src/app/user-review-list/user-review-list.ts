@@ -7,11 +7,12 @@ import { UserReviewDetail } from "../user-review-detail/user-review-detail";
 import { WatchedMovieDetail } from "../watched-movie-detail/watched-movie-detail";
 import { WatchedMovie, WatchedMovieService } from '../watched-movie-service'
 import { LoginService } from '../login-service';
+import { WatchedMovieForm } from "../watched-movie-form/watched-movie-form";
 
 @Component({
   selector: 'app-user-review-list',
   standalone: true,
-  imports: [CommonModule, UserReviewDetail, WatchedMovieDetail],
+  imports: [CommonModule, UserReviewDetail, WatchedMovieDetail, WatchedMovieForm],
   templateUrl: './user-review-list.html',
   styleUrls: ['./user-review-list.scss'],
 })
