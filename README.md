@@ -2,15 +2,13 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.8.
 
-## Development server
+## How to start web application
 
-To start a local development server, run:
+1. Navigate to the API repository and perform the steps listed in the README to have the backend API and database operating: `https://github.com/WSU-kduncan/cs4900-api-fan4`
+2. Now clone this repository and use the command `ng serve` in the terminal on the main branch of this repository.
+3. Navigate to `http://localhost:4200/` on a search engine to be presented with the web application.
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+NOTE: The application will be updated automatically whenever a new change is saved in the code.
 
 ## Code scaffolding
 
