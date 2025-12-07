@@ -8,9 +8,6 @@ export class LoginService {
   username: string;
 
   constructor(private http: HttpClient){
-    this.username = "asmith";
+    this.username = "asmith"; // Hardcoded to match current login page
   }
-
-  //! TODO: implement login user check
-  // login(movieID){}
 }
