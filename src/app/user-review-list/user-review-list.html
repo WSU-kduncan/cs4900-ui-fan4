@@ -1,50 +1,57 @@
 <div class="movie-review-page">
   <!-- Back Button -->
   <button class="back-btn" (click)="goBack()">← Back to Movies</button>
-
+  
   <!-- Movie Info Section (hardcoded for now) -->
   <section class="movie-info">
     <div class="movie-left">
       <div class="thumbnail-container">
-        <img class="movie-thumbnail" 
-             src="/matrixThumbnail.png" 
+        <img class="movie-thumbnail"
+             src="/matrixThumbnail.png"
              alt="Movie Poster" />
       </div>
       <button class="review-btn" (click)="toggleReviewForm()">Review</button>
     </div>
-
+  
     <div class="movie-right">
       <h1 class="movie-title">Movie #{{ movieId() }}</h1>
-      
       <div class="rating-badge">--/10</div>
-      
       <p class="director">Director: --</p>
-      
       <h3 class="synopsis-heading">Synopsis</h3>
       <div class="synopsis-box">
         <p><!-- Synopsis can go here later --></p>
       </div>
     </div>
   </section>
-
+  
+  @if (watchedMovieEntry()) {
+    <app-watched-movie-detail [watchedMovie]="{
+      user: loginService.username,
+      movieID: movieId(),
+      watchedDate: this.watchedMovieEntry()?.watchedDate || '0000-00-00'
+    }"></app-watched-movie-detail>
+  } @else {
+    <p>Have you watched this movie?</p>
+    <button type="button" (click)="this.deleteWatchedMovie(this.movieId(),this.loginService.username)">Mark as Watched</button>
+  }
+  
   <!-- Review Form (toggleable) -->
   @if (showReviewForm()) {
     <section class="add-review">
       <h3>Write Your Review</h3>
-      <textarea 
-        [value]="newReviewText()" 
-        (input)="newReviewText.set($any($event.target).value)" 
+      <textarea
+        [value]="newReviewText()"
+        (input)="newReviewText.set($any($event.target).value)"
         placeholder="Share your thoughts about this movie..."
         rows="4">
       </textarea>
       <button class="submit-btn" (click)="addNewReview()">Submit Review</button>
     </section>
   }
-
+  
   <!-- User Reviews Section -->
   <section class="reviews-section">
     <h2 class="reviews-heading">User Reviews</h2>
-    
     @if (reviews().length > 0) {
       <ul class="reviews-list">
         @for (review of reviews(); track review.movieID + '-' + review.username) {

@@ -26,6 +26,10 @@ export class WatchedMovieService {
     return this.http.get<WatchedMovie[]>('http://localhost:8080/Fan4/watched-movie'); // Required adding CORS file in API
   }
 
+  getWatchedMovie(movieID: number, user: string): Observable<WatchedMovie>{
+    return this.http.get<WatchedMovie>(`http://localhost:8080/Fan4/watched-movie/${movieID}/${user}`);
+  }
+
   deleteWatchedMovie(movieID: number, user: string): Observable<HttpResponse<any>> {
     return this.http.delete<WatchedMovie>(`http://localhost:8080/Fan4/watched-movie/${movieID}/${user}`, { observe: 'response' }).pipe(
       map((response: { status: any; }) => response.status));

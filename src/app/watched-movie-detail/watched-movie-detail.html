@@ -1,5 +1,4 @@
 <div class ="watched-movie-detail">
-    <p>user: {{ watchedMovie().user }}</p>
-    <p>Movie: {{ watchedMovie().movieID }}</p>
-    <p>Watched Date: {{ watchedMovie().watchedDate }}</p>
-</div>
+    <p>You ({{ watchedMovie().user }}) watched movie {{ watchedMovie().movieID }} on {{ watchedMovie().watchedDate }}</p>
+    <button class="button" (click)="this.deleteWatchedMovie(watchedMovie().movieID, watchedMovie().user)">Mark Unwatched</button>
+    </div>

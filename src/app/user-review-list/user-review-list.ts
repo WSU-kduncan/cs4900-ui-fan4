@@ -4,11 +4,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, UserReview } from '../user.service';
 import { UserReviewDetail } from "../user-review-detail/user-review-detail";
+import { WatchedMovieDetail } from "../watched-movie-detail/watched-movie-detail";
+import { WatchedMovie, WatchedMovieService } from '../watched-movie-service'
+import { LoginService } from '../login-service';
 
 @Component({
   selector: 'app-user-review-list',
   standalone: true,
-  imports: [CommonModule, UserReviewDetail],
+  imports: [CommonModule, UserReviewDetail, WatchedMovieDetail],
   templateUrl: './user-review-list.html',
   styleUrls: ['./user-review-list.scss'],
 })
@@ -22,11 +25,24 @@ export class UserReviewList implements OnInit {
   reviews = signal<UserReview[]>([]);
   newReviewText = signal('');
   showReviewForm = signal(false);
+
+  loginService = inject(LoginService);
+  watchedMovieService = inject(WatchedMovieService);
   
   // Movie ID from route
   movieId = signal<number>(1);
 
+  isWatched: boolean = false;
+  watchedMovieEntry = signal<WatchedMovie | null>(null);
+
+  deleteSignal = signal<boolean>(false);
+
   constructor() {
+    effect(() => {
+      this.watchedMovieService.needToUpdateSwitch();
+      this.getWatchedMovie(this.movieId(), this.loginService.username);
+    });
+
     effect(() => {
       this.userService.needToUpdateSwitch();
       this.loadReviews();
@@ -41,6 +57,7 @@ export class UserReviewList implements OnInit {
       const id = +params['id'];
       this.movieId.set(id);
       this.loadReviews();
+      this.getWatchedMovie(id, this.loginService.username);
     });
   }
 
@@ -98,6 +115,40 @@ export class UserReviewList implements OnInit {
         },
       error: (err) => {
         console.error('Failed to delete review:', err);
+      }
+    });
+  }
+
+getWatchedMovie(movieID: number, user: string) {
+    this.watchedMovieService.getWatchedMovie(movieID, user).subscribe({
+      next: (watchedMovie: WatchedMovie) => {
+        if (watchedMovie) {
+          this.watchedMovieEntry.set(watchedMovie);
+          this.isWatched = true;
+        } else {
+          this.watchedMovieEntry.set(null);
+          this.isWatched = false;
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load watched movie:', err);
+        this.watchedMovieEntry.set(null);
+      }
+    });
+  }
+
+  deleteWatchedMovie(movieID: number,user: string) {
+    this.watchedMovieService.deleteWatchedMovie(movieID, user).subscribe({
+      next: (statusCode) => {
+        console.log('Delete successful, status:', statusCode);
+
+        // Force watchedMovieList to update
+        this.deleteSignal.update(current => !current);
+
+      },
+      error: (error) => {
+        console.error('Delete failed:', error);
+        this.watchedMovieService.needToUpdateSwitch.update(current => !current)
       }
     });
   }
