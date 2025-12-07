@@ -18,19 +18,27 @@ Description: The CollectiViews web application was created using HTML, CSS, and 
 
 At the default URL, the user is greeted with a login page. The user can use their credentials to enter the web application.
 
-IMAGES: 
+IMAGE:
+
+![Login Image](./README_Images/Login.png)
 
 ## Choose a movie
 
 After logging in, the user can select which movie they would like to learn more about or review. They will then be presented information about the movie, ratings and reviews, and have the ability to leave their own review.
 
-IMAGES: 
+IMAGE:
+
+![Movie List Image](./README_Images/Movies.png)
 
 ## Write a review
 
 Writing a review will automatically update the database using a create operation. A review can also be deleted and have changes updated in the database. In order to leave a review, a user must be in the database.
 
 IMAGES: 
+
+![Top Review Image](./README_Images/Review1.png)
+
+![Bottom Review Image](./README_Images/Review2.png)
 
 ## Code scaffolding
 
