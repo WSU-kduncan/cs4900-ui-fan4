@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, effect, inject, signal, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, UserReview } from '../user.service';
 import { UserReviewDetail } from "../user-review-detail/user-review-detail";
 
@@ -11,15 +12,21 @@ import { UserReviewDetail } from "../user-review-detail/user-review-detail";
   templateUrl: './user-review-list.html',
   styleUrls: ['./user-review-list.scss'],
 })
-export class UserReviewList {
+export class UserReviewList implements OnInit {
 
   userService = inject(UserService);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
+  destroyRef = inject(DestroyRef);
 
   reviews = signal<UserReview[]>([]);
   newReviewText = signal('');
+  showReviewForm = signal(false);
+  
+  // Movie ID from route
+  movieId = signal<number>(1);
 
   constructor() {
-    // Effect: reload reviews whenever needToUpdateSwitch toggles
     effect(() => {
       this.userService.needToUpdateSwitch();
       this.loadReviews();
@@ -27,13 +34,22 @@ export class UserReviewList {
   }
 
   ngOnInit(): void {
-    this.loadReviews();
+    // Get movieId from route params
+    this.route.params.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(params => {
+      const id = +params['id'];
+      this.movieId.set(id);
+      this.loadReviews();
+    });
   }
 
   loadReviews(): void {
     this.userService.getReviews().subscribe({
       next: (reviews: UserReview[]) => {
-        this.reviews.set(reviews);
+        // Filter reviews for this movie
+        const movieReviews = reviews.filter(r => r.movieID === this.movieId());
+        this.reviews.set(movieReviews);
         console.log('Updated reviews list');
       },
       error: (err) => {
@@ -42,12 +58,20 @@ export class UserReviewList {
     });
   }
 
+  toggleReviewForm() {
+    this.showReviewForm.update(v => !v);
+  }
+
+  goBack() {
+    this.router.navigate(['movies']);
+  }
+
   addNewReview() {
     if (!this.newReviewText()) return;
 
     const newReview: UserReview = {
       username: 'asmith',
-      movieID: 1,
+      movieID: this.movieId(),
       rating: 5,
       writtenReview: this.newReviewText(),
       reviewDate: new Date().toISOString()
@@ -57,7 +81,7 @@ export class UserReviewList {
       next: (res) => {
         console.log('Review successfully saved:', res);
         this.newReviewText.set('');
-        // Toggle to refresh list
+        this.showReviewForm.set(false);
         this.userService.needToUpdateSwitch.update(current => !current);
       },
       error: (err) => {
@@ -70,7 +94,6 @@ export class UserReviewList {
     this.userService.deleteReview(review.username, review.movieID).subscribe({
       next: () => {
         console.log(`Deleted review for ${review.username} / movie ${review.movieID}`);
-        // Trigger list refresh
         this.userService.needToUpdateSwitch.update(current => !current);
         },
       error: (err) => {

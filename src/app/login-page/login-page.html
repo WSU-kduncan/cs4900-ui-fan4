@@ -1,0 +1,52 @@
+<header class="site-header">
+  <div class="logo login-title login-title--striped">
+    CollectiViews
+  </div>
+</header>
+
+<main class="login-page">
+  <div class="login-card">
+
+<div *ngIf="errorMessage()">{{ errorMessage() }}</div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <div class="form-field">
+        <label for="username">USERNAME</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          required
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="password">PASSWORD</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          required
+        />
+      </div>
+
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+      </div>
+
+      <div class="login-actions">
+        <button type="submit" class="login-btn">LOGIN</button>
+        <button 
+          type="button" 
+          class="register-btn"
+          routerLink="/register"
+        >
+          REGISTER ACCOUNT
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</main>

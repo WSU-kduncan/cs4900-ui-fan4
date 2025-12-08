@@ -1,0 +1,37 @@
+<header class="site-header">
+  <div class="logo">CollectiViews</div>
+</header>
+
+<nav class="main-nav">
+  <button class="nav-btn active">HOME</button>
+  <button class="nav-btn">FEED</button>
+  
+  <div class="search-container">
+    <span class="search-prefix">x</span>
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Search"
+      [value]="searchQuery" 
+    />
+    <button class="search-btn">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+    </button>
+  </div>
+  
+  <button class="profile-btn">
+    <div class="profile-placeholder">🍑</div>
+  </button>
+</nav>
+
+<main class="content">
+  <h2 class="results-heading">Search Results for: "{{ searchQuery }}"</h2>
+  
+  <section class="movie-grid-container">
+    <app-movie-list></app-movie-list>
+  </section>
+</main>
+
